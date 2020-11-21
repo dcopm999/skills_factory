@@ -73,9 +73,11 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "sorl.thumbnail",
 ]
 
 LOCAL_APPS = [
+    "skills_factory.main.apps.MainConfig",
     "skills_factory.users.apps.UsersConfig",
     # Your stuff: custom apps go here
 ]

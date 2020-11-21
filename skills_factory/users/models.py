@@ -1,14 +1,15 @@
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from sorl.thumbnail import ImageField
 
 
 class User(AbstractUser):
     """Default user for Skills Factory."""
 
-    #: First and last name do not cover name patterns around the globe
-    name = CharField(_("Name of User"), blank=True, max_length=255)
+    image = ImageField(
+        upload_to="user-images", blank=True, null=True, verbose_name=_("User image")
+    )
 
     def get_absolute_url(self):
         """Get url for user's detail view.
