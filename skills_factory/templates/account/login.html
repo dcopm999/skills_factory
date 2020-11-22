@@ -20,47 +20,29 @@
 
     <form action="" method="POST">
       {% csrf_token %}
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" name="login" placeholder="{% trans 'Username' %}">
-        <div class="input-group-append">
-          <div class="input-group-text">
-	    <span class="fas fa-user"></span>
-          </div>
-        </div>
-      </div>
-      <div class="input-group mb-3">
-        <input type="password" class="form-control" name="password" placeholder="Password">
-        <div class="input-group-append">
-          <div class="input-group-text">
-	    <span class="fas fa-lock"></span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-8">
-          <div class="icheck-primary">
-	    <input type="checkbox" id="remember" name="remember">
-	    <label for="remember">
-              {% trans 'Remember Me' %}
-	    </label>
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-4">
-          <input type="submit" class="btn btn-primary btn-block" value="{% trans 'Sign In' %}">
-        </div>
-        <!-- /.col -->
-      </div>
+      {{ form|crispy }}
+      <!-- /.col -->
+      <input type="submit" class="btn btn-primary btn-block" value="{% trans 'Sign In' %}">
+      <!-- /.col -->
     </form>
 
+    <!-- .social-auth-links -->
     <div class="social-auth-links text-center mb-3">
-      <p>- {% trans 'OR' %} -</p>
-      <a href="#" class="btn btn-block btn-primary">
-        <i class="fab fa-facebook mr-2"></i> {% trans 'Sign in using Facebook' %}
+      {% get_providers as socialaccount_providers %}
+
+      {% for provider in socialaccount_providers %}
+      {% if provider.id == "openid" %}
+      {% for brand in provider.get_brands %}
+      <a title="{{brand.name}}" class="btn btn-block btn-primary"
+	 href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
+	{{brand.name}}
       </a>
-      <a href="#" class="btn btn-block btn-danger">
-        <i class="fab fa-google-plus mr-2"></i> {% trans 'Sign in using Google+' %}
-      </a>
+      {% endfor %}
+      {% endif %}
+      <p> - {% trans "or" %} - </p>
+      <a title="{{provider.name}}" class="btn btn-block btn-primary"
+	 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+      {% endfor %}
     </div>
     <!-- /.social-auth-links -->
 
@@ -71,28 +53,6 @@
       <a href="{{ signup_url}}" class="text-center">{% trans 'Register a new membership' %}</a>
     </p>
   </div>
-      <!-- /.login-card-body -->
+  <!-- /.login-card-body -->
 </div>
-
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% endif %}
-
 {% endblock %}
