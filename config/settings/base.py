@@ -69,13 +69,16 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.vk",
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "sorl.thumbnail",
 ]
 
 LOCAL_APPS = [
+    "skills_factory.main.apps.MainConfig",
     "skills_factory.users.apps.UsersConfig",
     # Your stuff: custom apps go here
 ]
