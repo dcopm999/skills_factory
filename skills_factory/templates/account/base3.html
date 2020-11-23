@@ -1,0 +1,51 @@
+{% load static i18n compress %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}{% block head_title %}{% trans 'Skills Factory' %}{% endblock %}{% endblock %}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+  {% compress css %}
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'node_modules/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'node_modules/admin-lte//dist/css/adminlte.min.css' %}">
+  {% endcompress %}
+</head>
+
+<body class="hold-transition login-page">
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+  {% endfor %}
+  {% endif %}
+
+  <div class="login-box">
+  {% block inner %}
+
+
+    <!-- /.login-logo -->
+  {% endblock inner %}
+
+  </div>
+  <!-- /.login-box -->
+
+  {% compress js %}
+  <!-- jQuery -->
+  <script src="{% static 'node_modules/admin-lte/plugins/jquery/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'node_modules/admin-lte/dist/js/adminlte.min.js' %}"></script>
+  {% endcompress %}
+</body>
+</html>
