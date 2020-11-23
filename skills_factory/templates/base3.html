@@ -16,9 +16,9 @@
 
   {% compress css %}
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css' %}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <link rel="stylesheet" href="{% static 'node_modules/admin-lte/dist/css/adminlte.min.css' %}">
   {% endcompress %}
 </head>
 <!--
@@ -224,16 +224,16 @@ to get the desired effect
 <!-- REQUIRED SCRIPTS -->
 {% compress js %}
 <!-- jQuery -->
-<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/admin-lte/plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap -->
-<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE -->
-<script src="{% static 'dist/js/adminlte.js' %}"></script>
+<script src="{% static 'node_modules/admin-lte/dist/js/adminlte.js' %}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
-<script src="{% static 'dist/js/demo.js' %}"></script>
-<script src="{% static 'dist/js/pages/dashboard3.js' %}"></script>
+<script src="{% static 'node_modules/admin-lte/plugins/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'node_modules/admin-lte/dist/js/demo.js' %}"></script>
+<script src="{% static 'node_modules/admin-lte/dist/js/pages/dashboard3.js' %}"></script>
 {% endcompress %}
 </body>
 </html>
