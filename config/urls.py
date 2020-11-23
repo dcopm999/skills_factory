@@ -25,6 +25,14 @@ if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
     urlpatterns += staticfiles_urlpatterns()
 
+google_verify = [
+    path(
+        "google3c2570b4c41d746c.html",
+        TemplateView.as_view(template_name="google3c2570b4c41d746c.html"),
+    ),
+]
+urlpatterns += google_verify
+
 # API URLS
 urlpatterns += [
     # API base url
