@@ -28,8 +28,8 @@
 
     <!-- .social-auth-links -->
     <div class="social-auth-links text-center mb-3">
+      <p> - {% trans "or" %} - </p>
       {% get_providers as socialaccount_providers %}
-
       {% for provider in socialaccount_providers %}
       {% if provider.id == "openid" %}
       {% for brand in provider.get_brands %}
@@ -39,7 +39,6 @@
       </a>
       {% endfor %}
       {% endif %}
-      <p> - {% trans "or" %} - </p>
       <a title="{{provider.name}}" class="btn btn-block btn-primary"
 	 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
       {% endfor %}
