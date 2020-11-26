@@ -19,6 +19,7 @@ urlpatterns = [
     # User management
     path("users/", include("skills_factory.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("educations/", include("educations.urls", namespace="educations")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:

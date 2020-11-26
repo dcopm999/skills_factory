@@ -84,6 +84,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "skills_factory.main.apps.MainConfig",
     "skills_factory.users.apps.UsersConfig",
+    "skills_factory.educations",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -193,6 +194,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "skills_factory.utils.context_processors.settings_context",
+                "skills_factory.educations.context_processors.cource_list",
             ],
         },
     }

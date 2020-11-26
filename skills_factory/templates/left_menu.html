@@ -10,12 +10,13 @@
   </a>
 
   <ul class="nav nav-treeview">
+    {% for cource in cource_list %}
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="{{cource.get_absolute_url}}" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
-        <p>{% trans "Linar algebra" %}</p>
+        <p>{{ cource.name }}</p>
       </a>
     </li>
-
+    {% endfor %}
   </ul>
 </li>
