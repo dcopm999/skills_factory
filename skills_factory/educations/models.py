@@ -7,9 +7,34 @@ from slugify import slugify
 USER = get_user_model()
 
 
-class Cource(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name=_("Name"))
-    title = models.CharField(max_length=100, verbose_name=_("Title"))
+    slug = models.SlugField(verbose_name=_("Slug"))
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("educations:category-detail", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
+
+
+class Cource(models.Model):
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Category"),
+    )
+    name = models.CharField(max_length=100, unique=True, verbose_name=_("Name"))
     desc = models.TextField(verbose_name=_("Description"))
     slug = models.SlugField(verbose_name=_("Slug"))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
@@ -40,7 +65,6 @@ class Lesson(models.Model):
     cource = models.ForeignKey(
         Cource, on_delete=models.CASCADE, verbose_name=_("Cource name")
     )
-    title = models.CharField(max_length=100, verbose_name=_("Title"))
     desc = models.TextField(verbose_name=_("Description"))
     slug = models.SlugField(verbose_name=_("Slug"))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))

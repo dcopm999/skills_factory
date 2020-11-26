@@ -1,0 +1,31 @@
+{% extends 'base3.html' %}
+{% load i18n %}
+
+
+{% block content %}
+
+{% for cource in object.cource_set.all %}
+<div class="col-md-3 col-sm-6 col-12" onclick="window.location.href='{{cource.get_absolute_url}}';">
+  <div class="info-box bg-info">
+    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+
+    <div class="ribbon-wrapper">
+      <div class="ribbon bg-danger">
+        New
+      </div>
+    </div>
+
+    <div class="info-box-content">
+      <span class="info-box-text">{% trans 'Lessons count' %}: {{cource.lesson_set.count}}</span>
+      <span class="info-box-text">{{cource.name}}</span>
+      <span class="progress-description">
+	{{cource.title}}
+      </span>
+    </div>
+    <!-- /.info-box-content -->
+  </div>
+  <!-- /.info-box -->
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -231,9 +231,8 @@ to get the desired effect
 	      </div>
 
 	      <div class="info-box-content">
+		<span class="info-box-text">{% trans 'Lessons count' %}: {{cource.lesson_set.count}}</span>
 		<span class="info-box-text">{{cource.name}}</span>
-		<span class="info-box-number">{% trans 'Lessons count' %}: {{cource.lesson_set.count}}</span>
-
 		<span class="progress-description">
 		  {{cource.title}}
 		</span>

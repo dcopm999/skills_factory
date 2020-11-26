@@ -194,6 +194,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "skills_factory.utils.context_processors.settings_context",
+                "skills_factory.educations.context_processors.category_list",
                 "skills_factory.educations.context_processors.cource_list",
             ],
         },
