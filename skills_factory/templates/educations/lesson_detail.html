@@ -1,0 +1,139 @@
+{% extends 'base3.html' %}
+{% load i18n thumbnail %}
+
+{% block title %}
+{{ block.super }} |
+{{ object.cource.name }} |
+{{ object.name }}
+{% endblock %}
+
+
+{% block crumbs %}
+{{block.super}}
+<li class="breadcrumb-item"><a href="{{ object.cource.get_absolute_url }}">{% trans 'Cource' %}</a></li>
+<li class="breadcrumb-item"><a href="{{ object.get_absolute_url }}">{% trans 'Lesson' %}</a></li>
+{% endblock %}
+
+{% block page_title %}
+{{object.name}}
+{% endblock %}
+
+{% block content %}
+<div class="card-body">
+  <div class="card">
+    <div class="card-header">
+      <div class="user-block">
+	{{object.title}}
+      </div>
+      <!-- /.user-block -->
+      <div class="card-tools">
+	<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
+	  <i class="far fa-circle"></i></button>
+	<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+	</button>
+	<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+	</button>
+      </div>
+      <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      {{object.desc}}
+    </div>
+
+    <div class="card-footer card-comments">
+      <!-- /.card-comment -->
+      {% for video in object.video_set.all %}
+      <div class="card-comment">
+	<!-- User image -->
+	{% thumbnail video.teacher.image "160x160" crop="center" as im %}
+	<img src="{{ im.url }}" alt="{% trans 'User Image' %}" class="img-circle img-sm">
+	  {% endthumbnail %}
+
+	<div class="comment-text">
+	  <span class="username">
+	    <a href="{{video.teacher.get_absolute_url}}">{{ video.teacher.get_full_name}}</a>
+	    <span class="text-muted float-right">{{video.updated | date}}</span>
+	  </span><!-- /.username -->
+	  <icon class="far fa-file-video"></icon>
+	  <a href="{{video.get_absolute_url}}">
+	    {{video.name}} - {{video.title}}
+	  </a>
+	</div>
+	<!-- /.comment-text -->
+      </div>
+      {% endfor %}
+      <!-- /.card-comment -->
+    </div>
+  </div>
+</div>
+
+{% for question in object.question_set.all %}
+<div class="col-4">
+  <div class="card-body">
+    <div class="card">
+
+      <form action="{% url 'educations:answer-create' %}" method="POST">{%csrf_token%}
+  	<div class="card-header">
+	  <input type="hidden" id="id_question" name="question" value="{{question.pk}}">
+	  {{question.text}}
+	</div>
+
+	{% ifequal question.variant_set.count 1 %}
+	<div class="card-body">
+	  <input typee="text" id="id_written" name="written">
+	</div>
+	{% else %}
+
+	{% if question.answer_set.last.is_valid %}
+	<div class="card-body">
+	  <div class="badge badge-success">
+	    <i class="fa fa-check" aria-hidden="true"></i>
+	  </div>
+	  {{question.answer_set.last.variant}}
+	</div>
+	{% else %}
+	<div class="card-body">
+	  <ul>
+	    {% for variant in question.variant_set.all %}
+	    <p><input id="id_variant" name="variant" type="radio" value="{{variant.pk}}"> {{variant.text}}</p>
+	    {% endfor %}
+	  </ul>
+	</div>
+	{% endif %}
+
+	{% endifequal %}
+	<div class="card-footer">
+	  <input type="submit" value="{% trans 'Answer' %}">
+	</div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block js_ext %}
+{{ block.supper}}
+<script>
+  $(function () {
+      $("#example1").DataTable({
+	  "responsive": true,
+	  "autoWidth": false,
+      });
+      $('#example2').DataTable({
+	  "paging": true,
+	  "lengthChange": false,
+	  "searching": false,
+	  "ordering": true,
+	  "info": true,
+	  "autoWidth": false,
+	  "responsive": true,
+      });
+  });
+</script>
+{% endblock %}

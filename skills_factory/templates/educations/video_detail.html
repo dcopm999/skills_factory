@@ -1,0 +1,61 @@
+{% extends 'base3.html' %}
+{% load i18n thumbnail %}
+
+{% block title %}
+{{block.super}} |
+{% trans 'Video' %}: {{object.name}}
+{% endblock %}
+
+{% block crumbs %}
+{{block.super}}
+<li class="breadcrumb-item"><a href="{{ object.lesson.cource.get_absolute_url }}">{% trans 'Cource' %}</a></li>
+<li class="breadcrumb-item"><a href="{{ object.lesson.get_absolute_url }}">{% trans 'Lesson' %}</a></li>
+<li class="breadcrumb-item"><a href="{{ object.get_absolute_url }}">{% trans 'Video' %}</a></li>
+{% endblock %}
+
+{% block page_title %}
+{{object.title }}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-6">
+  <!-- Box Comment -->
+  <div class="card card-widget">
+    <div class="card-header">
+      <div class="user-block">
+	{% thumbnail video.teacher.image "128x128" crop="center" as im %}
+	<img src="{{ im.url }}" alt="{% trans 'Teacher Image' %}" class="img-circle">
+	{% endthumbnail %}
+	<span class="username"><a href="{{object.teacher.get_absolute_url}}">{{object.teacher.get_full_name}}</a></span>
+	<span class="description">{% trans 'Published' %}  - {{video.updated | date}}</span>
+      </div>
+      <!-- /.user-block -->
+      <div class="card-tools">
+	<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
+	  <i class="far fa-circle"></i></button>
+	<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+	</button>
+	<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+	</button>
+      </div>
+      <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div class="embed-responsive embed-responsive-16by9">
+	<iframe width="687" height="410" src="{{video.url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
+      </div>
+
+      <p>{{object.title}}</p>
+      <p>{{object.desc}}</p>
+      <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
+      <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
+      <span class="float-right text-muted">127 likes - 3 comments</span>
+    </div>
+    <!-- /.card-body -->
+
+  </div>
+  <!-- /.card -->
+</div>
+{% endblock %}
