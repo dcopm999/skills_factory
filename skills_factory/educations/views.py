@@ -3,6 +3,16 @@ from django.views import generic
 from skills_factory.educations import models
 
 
+class CategoryListView(generic.ListView):
+    model = models.Category
+    template_name = "educations/category_list.html"
+
+
+class CategoryDetailView(generic.DetailView):
+    model = models.Category
+    template_name = "educations/category_detail.html"
+
+
 class CourceListView(generic.ListView):
     model = models.Cource
     template_name = "educations/cource_list.html"

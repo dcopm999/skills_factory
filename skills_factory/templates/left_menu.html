@@ -10,11 +10,11 @@
   </a>
 
   <ul class="nav nav-treeview">
-    {% for cource in cource_list %}
+    {% for category in category_list %}
     <li class="nav-item">
-      <a href="{{cource.get_absolute_url}}" class="nav-link">
+      <a href="{{category.get_absolute_url}}" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
-        <p>{{ cource.name }}</p>
+        <p>{{ category.name }}</p>
       </a>
     </li>
     {% endfor %}

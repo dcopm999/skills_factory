@@ -19,16 +19,22 @@ class VideoInline(admin.StackedInline):
     model = models.Video
 
 
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+    prepopulated_fields = {"slug": ("name",)}
+
+
 @admin.register(models.Cource)
 class CourceAdmin(admin.ModelAdmin):
-    list_display = ["name", "title", "desc"]
+    list_display = ["name", "category", "desc"]
     search_fields = ["name"]
     prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(models.Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ["name", "cource", "title", "desc"]
+    list_display = ["name", "cource", "desc"]
     search_fields = ["name", "cource"]
     prepopulated_fields = {"slug": ("name",)}
 

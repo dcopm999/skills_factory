@@ -5,6 +5,12 @@ from skills_factory.educations import views
 app_name = "educations"
 
 urlpatterns = [
+    path("category/list", views.CategoryListView.as_view(), name="category-list"),
+    path(
+        "category/<slug:slug>",
+        views.CategoryDetailView.as_view(),
+        name="category-detail",
+    ),
     path("cource/list", views.CourceListView.as_view(), name="cource-list"),
     path("cource/<slug:slug>", views.CourceDetailView.as_view(), name="cource-detail"),
     path("lesson/list", views.LessonListView.as_view(), name="lesson-list"),
