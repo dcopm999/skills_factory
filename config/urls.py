@@ -1,13 +1,21 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
+from skills_factory.educations import views
 from skills_factory.main import views as main_views
+
+sitemaps = {
+    "cource": views.CourceSitemapView,
+    "lesson": views.LessonSitemapView,
+    "video": views.VideoSitemapView,
+}
 
 urlpatterns = [
     path("", main_views.HomeView.as_view(), name="home"),
@@ -21,6 +29,16 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("educations/", include("educations.urls", namespace="educations")),
     # Your stuff: custom urls includes go here
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
@@ -34,6 +52,10 @@ domain_verify = [
     path(
         "receiver.html",
         TemplateView.as_view(template_name="receiver.html"),
+    ),
+    path(
+        "yandex_cfc6a1a60b4cf69a.html",
+        TemplateView.as_view(template_name="yandex_cfc6a1a60b4cf69a.html"),
     ),
 ]
 urlpatterns += domain_verify
