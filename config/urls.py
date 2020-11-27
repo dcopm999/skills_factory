@@ -8,14 +8,13 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
-from skills_factory.educations import views
+from skills_factory.educations.views_sitemap import SITEMAPS as educations_sitemaps
 from skills_factory.main import views as main_views
 
-sitemaps = {
-    "cource": views.CourceSitemapView,
-    "lesson": views.LessonSitemapView,
-    "video": views.VideoSitemapView,
-}
+SITEMAPS = dict()
+SITEMAPS.update(
+    educations_sitemaps,
+)
 
 urlpatterns = [
     path("", main_views.HomeView.as_view(), name="home"),
@@ -36,7 +35,7 @@ urlpatterns = [
     path(
         "sitemap.xml",
         sitemap,
-        {"sitemaps": sitemaps},
+        {"sitemaps": SITEMAPS},
         name="django.contrib.sitemaps.views.sitemap",
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
