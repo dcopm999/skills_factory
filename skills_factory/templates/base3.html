@@ -1,3 +1,4 @@
+
 {% load static i18n compress thumbnail %}
 <!DOCTYPE html>
 <html lang="en">
@@ -261,10 +262,10 @@ to get the desired effect
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="#">{% trans 'Skills Factory' %}</a>.</strong>
+    <strong>Copyright &copy; 2019-{% now 'Y' %} <a href="{% url 'home' %}">{% trans 'Skills Factory' %}</a>.</strong>
     {% trans 'All rights reserved.' %}
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
+      <b>Version</b> 0.1.1a
     </div>
   </footer>
 </div>
@@ -308,6 +309,10 @@ to get the desired effect
 
 <!-- AdminLTE -->
 <script src="{% static 'admin-lte/dist/js/adminlte.js' %}"></script>
+
+<!-- ckeditor -->
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{% static 'admin-lte/plugins/chart.js/Chart.min.js' %}"></script>

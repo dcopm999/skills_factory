@@ -19,69 +19,71 @@
 {% endblock %}
 
 {% block content %}
-<div class="card-body">
+<section class="col-lg-7">
+
   <div class="card">
     <div class="card-header">
-      <div class="user-block">
-	{{object.name}}
-      </div>
-      <!-- /.user-block -->
+      <h3 class="card-title">{% trans 'Video' %}</h3>
       <div class="card-tools">
-	<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
-	  <i class="far fa-circle"></i></button>
 	<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 	</button>
 	<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
 	</button>
       </div>
-      <!-- /.card-tools -->
     </div>
-    <!-- /.card-header -->
+
     <div class="card-body">
-      {{object.desc}}
-    </div>
-
-    <div class="card-footer card-comments">
-      <!-- /.card-comment -->
-      {% for video in object.video_set.all %}
-      <div class="card-comment">
-	<!-- User image -->
-	{% thumbnail video.teacher.image "160x160" crop="center" as im %}
-	<img src="{{ im.url }}" alt="{% trans 'User Image' %}" class="img-circle img-sm">
-	  {% endthumbnail %}
-
-	<div class="comment-text">
-	  <span class="username">
-	    <a href="{{video.teacher.get_absolute_url}}">{{ video.teacher.get_full_name}}</a>
-	    <span class="text-muted float-right">{{video.updated | date}}</span>
-	  </span><!-- /.username -->
-	  <icon class="far fa-file-video"></icon>
-	  <a href="{{video.get_absolute_url}}">
-	    {{video.name}} - {{video.title}}
-	  </a>
-	</div>
-	<!-- /.comment-text -->
-      </div>
-      {% endfor %}
-      <!-- /.card-comment -->
+      <table id="video-table" class="table">
+        <thead>
+          <tr>
+            <th>{% trans 'Teacher' %}</th>
+            <th>{% trans 'Video' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+	  {% for video in object.video_set.all %}
+          <tr>
+            <td>
+	      {% thumbnail video.teacher.image "160x160" crop="center" as im %}
+	      <img src="{{ im.url }}" alt="{% trans 'User Image' %}" class="img-circle img-sm">
+	      {% endthumbnail %}
+	      <span class="username">
+		<a href="{{video.teacher.get_absolute_url}}"><small>{{ video.teacher.get_full_name}}</small></a>
+	      </span><!-- /.username -->
+            </td>
+            <td>
+	      <icon class="far fa-file-video"></icon>
+	      <a href="{{video.get_absolute_url}}">
+		<small>{{video.title}} - {{video.name}}</small>
+	      </a>
+            </td>
+          </tr>
+	  {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
 
-{% for question in object.question_set.all %}
-<div class="col-4">
-  <div class="card-body">
+
+
+  {% for question in object.question_set.all %}
+  <div class="col-lg-6">
+
     <div class="card">
+      <div class="card-header">
+	{{question.text}}
+	<div class="card-tools">
+	  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+	  </button>
+	</div>
+      </div>
 
       <form action="{% url 'educations:answer-create' %}" method="POST">{%csrf_token%}
-  	<div class="card-header">
-	  <input type="hidden" id="id_question" name="question" value="{{question.pk}}">
-	  {{question.text}}
-	</div>
+	<input type="hidden" id="id_question" name="question" value="{{question.pk}}">
 
 	{% ifequal question.variant_set.count 1 %}
 	<div class="card-body">
-	  <input typee="text" id="id_written" name="written">
+	  <input type="text" id="id_written" name="written">
 	</div>
 	{% else %}
 
@@ -101,7 +103,6 @@
 	  </ul>
 	</div>
 	{% endif %}
-
 	{% endifequal %}
 	<div class="card-footer">
 	  <input type="submit" value="{% trans 'Answer' %}">
@@ -111,9 +112,31 @@
 
     </div>
   </div>
-</div>
-{% endfor %}
+  {% endfor %}
 
+</section>
+
+
+<section class="col-lg-5">
+
+  <div class="card">
+    <div class="card-header border-0">
+      <h3 class="card-title">{% trans 'Description' %}</h3>
+
+      <div class="card-tools">
+	<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+	</button>
+	<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+	</button>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <p>{{object.desc|safe}}</p>
+    </div>
+  </div>
+
+</section>
 
 {% endblock %}
 
@@ -125,14 +148,14 @@
 	  "responsive": true,
 	  "autoWidth": false,
       });
-      $('#example2').DataTable({
-	  "paging": true,
+      $('#video-table').DataTable({
+	  "paging": false,
 	  "lengthChange": false,
 	  "searching": false,
 	  "ordering": true,
-	  "info": true,
+	  "info": false,
 	  "autoWidth": false,
-	  "responsive": true,
+	  "responsive": false,
       });
   });
 </script>
