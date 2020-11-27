@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
@@ -35,7 +36,7 @@ class Cource(models.Model):
         verbose_name=_("Category"),
     )
     name = models.CharField(max_length=100, unique=True, verbose_name=_("Name"))
-    desc = models.TextField(verbose_name=_("Description"))
+    desc = RichTextField(verbose_name=_("Description"))
     slug = models.SlugField(verbose_name=_("Slug"))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
@@ -65,7 +66,7 @@ class Lesson(models.Model):
     cource = models.ForeignKey(
         Cource, on_delete=models.CASCADE, verbose_name=_("Cource name")
     )
-    desc = models.TextField(verbose_name=_("Description"))
+    desc = RichTextField(verbose_name=_("Description"))
     slug = models.SlugField(verbose_name=_("Slug"))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_("Created"))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
@@ -91,7 +92,7 @@ class Lesson(models.Model):
 class Video(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name=_("Name"))
     title = models.CharField(max_length=100, verbose_name=_("Title"))
-    desc = models.TextField(verbose_name=_("Description"))
+    desc = RichTextField(verbose_name=_("Description"))
     url = models.URLField(unique=True, verbose_name=_("URL for video"))
     lesson = models.ForeignKey(
         Lesson, on_delete=models.CASCADE, verbose_name=_("Lesson")

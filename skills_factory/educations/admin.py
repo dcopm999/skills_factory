@@ -27,21 +27,21 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Cource)
 class CourceAdmin(admin.ModelAdmin):
-    list_display = ["name", "category", "desc"]
+    list_display = ["name", "category"]
     search_fields = ["name"]
     prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(models.Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ["name", "cource", "desc"]
+    list_display = ["name", "cource"]
     search_fields = ["name", "cource"]
     prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(models.Video)
 class VideAdmin(admin.ModelAdmin):
-    list_display = ["name", "lesson", "title", "desc", "url", "teacher"]
+    list_display = ["name", "lesson", "title", "url", "teacher"]
     prepopulated_fields = {"slug": ("name",)}
 
 
